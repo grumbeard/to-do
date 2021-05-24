@@ -25,8 +25,6 @@ class Project {
   get tasks() { return this._tasks }
 
   addTask(task) {
-    console.log(this);
-    console.log(this._tasks);
     this._tasks.push(task);
   }
 

@@ -1,12 +1,13 @@
-import Folder from './folders'
-import Project from './projects'
-import Task from './tasks'
-import seedData from './seeds'
-
 /*
   CONTROLLER MODULE
   This module makes decisions on how and what modules interact
 */
+
+import Folder from './folders'
+import Project from './projects'
+import Task from './tasks'
+import seedData from './seeds'
+import viewCoordinator from './view/coordinator'
 
 const controller = (function () {
   let _folders = null;
@@ -17,9 +18,13 @@ const controller = (function () {
 
   function initToDo() {
     seedData();
+    viewCoordinator.initLayout();
     _initFolders();
+    viewCoordinator.initFolders(_folders, _currentFolder);
     _initProjects();
+    viewCoordinator.initProjects(_currentFolder.projects, _currentProject);
     _initTasks();
+    viewCoordinator.initTasks(_currentProject.tasks, _currentTask);
   };
 
   function _initFolders() {
@@ -29,7 +34,7 @@ const controller = (function () {
 
   function _initProjects() {
     _projects = Project.list;
-    if (_projects) _setCurrentProject(_projects[0]);
+    if (_currentFolder.projects) _setCurrentProject(_currentFolder.projects[0]);
 
   }
 
