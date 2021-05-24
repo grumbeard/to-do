@@ -4,25 +4,39 @@
   Each folder allows projects to be added / removed from it
 */
 
-const folderFactory = function (folderData) {
-  const folder = {
-    name: folderData.name,
-    projects: folderData.projects || []
-  };
+class Folder {
+  constructor(folderData) {
+    this._name = folderData.name;
+    this._projects = folderData.projects || [];
+    Folder.list.push(this);
+  }
 
-  Object.assign(folder, factoryProto);
+  get name() { return this._name; }
 
-  return folder;
-}
+  set name(value) {
+    if (value.length > 15) {
+      alert("Name is too long");
+      return;
+    }
+    this._name = value.toString();
+  }
 
-const factoryProto = {
-  addProject: function (project) {
+  get projects() { return this._projects; }
+
+  addProject(project) {
     this.projects.push(project);
-  },
-  removeProject: function (project) {
+  }
+
+  removeProject(project) {
     let index = this.projects.indexOf(project);
     this.projects.splice(index, 1);
   }
-};
 
-export default folderFactory
+  // Static Properties
+  static _list = [];
+
+  // Static Methods
+  static get list() { return this._list; }
+}
+
+export default Folder
