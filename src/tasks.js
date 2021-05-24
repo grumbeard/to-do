@@ -5,12 +5,12 @@
 */
 
 class Task {
-  constructor(title) {
-    this._title = title;
-    this._description = null;
-    this._due = null;
-    this._priority = false;
-    this._done = false;
+  constructor(taskData) {
+    this._title = taskData.title;
+    this._description = taskData.description || null;
+    this._due = taskData.due || null;
+    this._priority = taskData.priority || false;
+    this._done = taskData.done || false;
   }
 
   get title() { return this._title; }

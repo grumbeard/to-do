@@ -6,9 +6,9 @@
 */
 
 class Project {
-  constructor(title) {
-    this._title = title;
-    this._tasks = [];
+  constructor(projectData) {
+    this._title = projectData.title;
+    this._tasks = projectData.tasks || [];
     Project._list.push(this);
   }
 
@@ -19,12 +19,14 @@ class Project {
       alert("Title is too long");
       return;
     }
-    this._title = value;
+    this._title = value.toString();
   }
 
   get tasks() { return this._tasks }
 
   addTask(task) {
+    console.log(this);
+    console.log(this._tasks);
     this._tasks.push(task);
   }
 
