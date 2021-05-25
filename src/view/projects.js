@@ -4,15 +4,20 @@
 */
 
 const projects = (function () {
-  function createProject(title) {
+
+  function createProject(data) {
+
     const project = document.createElement('div');
     project.classList.add('project');
-    project.innerText = title;
+    project.setAttribute('data-type', 'project');
+    project.setAttribute('data-id', data.id);
+    project.innerText = data.title;
 
     return project
   }
 
   return { createProject };
+
 })();
 
 export default projects

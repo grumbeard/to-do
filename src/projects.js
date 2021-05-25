@@ -6,51 +6,60 @@
 */
 
 class Project {
+
   constructor(projectData) {
+
     this._title = projectData.title;
     this._tasks = projectData.tasks || [];
-    Project._list.push(this);
+    this._id = Project._count;
+    Project._count++;
+
   }
 
+
   get title() { return this._title; }
+  get tasks() { return this._tasks }
+  get id() { return this._id; }
+
 
   set title(value) {
+
     if (value.length > 30) {
       alert("Title is too long");
       return;
     }
     this._title = value.toString();
+
   }
 
-  get tasks() { return this._tasks }
 
   addTask(task) {
+
     this._tasks.push(task);
+
   }
+
 
   removeTask(task) {
+
     let index = this._task.indexOf(task);
     this._tasks.splice(index, 1);
+
   }
 
+
   delete() {
+
     Object.keys(this).forEach(prop => {
       delete this[prop];
     });
+
   }
+
 
   // Static Properties
-  static _list = [];
+  static _count = 0;
 
-  // Static Methods
-  static get list() { return this._list; }
-
-  static delete(project) {
-    let index = this._list.indexOf(project);
-    this._list.splice(index, 1);
-
-    project.delete();
-  }
 }
 
 export default Project

@@ -4,15 +4,20 @@
 */
 
 const tasks = (function () {
-  function createTask(title) {
+
+  function createTask(data) {
+
     const task = document.createElement('div');
     task.classList.add('task');
-    task.innerText = title;
+    task.setAttribute('data-type', 'task');
+    task.setAttribute('data-id', data.id);
+    task.innerText = data.title;
 
     return task
   }
 
   return { createTask };
+
 })();
 
 export default tasks
