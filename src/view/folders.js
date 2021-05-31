@@ -4,19 +4,25 @@
 */
 
 const folders = (function () {
-  function createFolder(name) {
+
+  function createFolder(data) {
+
     const folder = document.createElement('div');
     folder.classList.add('folder');
-    folder.innerText = name;
+    folder.setAttribute('data-type', 'folder');
+    folder.setAttribute('data-id', data.id);
+    folder.innerText = data.name;
 
     return folder
   }
+
 
   function makeArchive(folder) {
     folder.classList.add('archive');
   }
 
   return { createFolder, makeArchive };
+
 })();
 
 export default folders
