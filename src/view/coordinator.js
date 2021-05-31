@@ -60,6 +60,8 @@ const coordinator = (function () {
 
       if (data == currentProjectData) _makeActive(project);
       project.addEventListener("click", controller.handleSelect);
+      _bindEventToChild(project, 'archive', 'click', controller.handleArchive);
+      _bindEventToChild(project, 'delete', 'click', controller.handleDelete);
     });
 
   }
@@ -83,6 +85,19 @@ const coordinator = (function () {
   function _makeActive(element) {
 
     element.classList.add('active');
+
+  }
+
+
+  function _bindEventToChild(parent, childClass, event, eventHandler) {
+
+    let target = null;
+
+    parent.childNodes.forEach(element => {
+      if (element.classList.contains(childClass)) target = element;
+    });
+
+    target.addEventListener(event, eventHandler);
 
   }
 

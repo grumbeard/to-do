@@ -42,7 +42,7 @@ class Project {
 
   removeTask(task) {
 
-    let index = this._task.indexOf(task);
+    let index = this._tasks.indexOf(task);
     this._tasks.splice(index, 1);
 
   }

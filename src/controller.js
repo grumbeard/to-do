@@ -57,6 +57,10 @@ const controller = (function () {
 
   function handleSelect(e) {
 
+    // Do not treat as selection if target is a button
+    // Let appropriate handler for button handle interaction instead
+    if (e.target.classList.contains('btn')) return
+
     let type = e.target.dataset.type;
     let id = e.target.dataset.id;
     let obj = null;
@@ -173,6 +177,60 @@ const controller = (function () {
   };
 
 
+  function handleArchive(e) {
+
+    let project = _projects.find(proj => proj._id == e.target.dataset.id);
+    let oldProjectFolder = _folders.find(f => f.projects.includes(project))
+    let newProjectFolder = _folders.find(f => f.name == "Archive")
+
+    // Move project to Archive folder
+    oldProjectFolder.removeProject(project);
+    newProjectFolder.addProject(project);
+
+    _updateData();
+    _updateDisplay();
+
+  }
+
+
+  function handleDelete(e) {
+
+    let project = _projects.find(proj => proj._id == e.target.dataset.id);
+    let folder = _folders.find(f => f.projects.includes(project))
+
+    folder.removeProject(project);
+
+    _updateData();
+    _updateDisplay();
+
+  }
+
+  function _deleteProject(project) {
+
+    // Delete all tasks for project
+    _deleteTasks(project);
+
+    // Make project null
+    project.delete();
+
+    // Remove from list of projects
+    let index = _projects.indexOf(project);
+    _projects.splice(index, 1);
+
+  }
+
+  function _deleteTasks(project) {
+    project.tasks.forEach(task => {
+      // Make task null
+      task.delete();
+
+      // Remove task from project
+      project.removeTask(task);
+    })
+
+  }
+
+
   function _checkXContainsY(x, y) {
 
     return (x[y].length == 0) ? false : true;
@@ -182,7 +240,9 @@ const controller = (function () {
 
   return {
     initToDo,
-    handleSelect
+    handleSelect,
+    handleArchive,
+    handleDelete
   };
 
 })();
