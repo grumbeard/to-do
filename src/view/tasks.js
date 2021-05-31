@@ -29,7 +29,11 @@ const tasks = (function () {
       data.id
       );
 
-    task.append(title, priorityBtn);
+    const countdown = document.createElement('div');
+    countdown.classList.add('countdown');
+    countdown.innerText = data.due;
+
+    task.append(title, priorityBtn, countdown);
 
     return task
   }

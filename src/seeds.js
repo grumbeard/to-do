@@ -35,7 +35,12 @@ function seedData () {
 
   // Generate tasks
   for (let i = 0; i < 20; i++) {
-    let task = new Task({ title: `Task No. ${i}` });
+    let task = new Task({
+      title: `Task No. ${i}`,
+      priority: (Math.random() > 0.5),
+      done: (Math.random() > 0.5),
+      due: _getRandomDate()
+    });
 
     // Add task to random project
     let index1 = Math.floor(Math.random() * 5);
@@ -45,6 +50,15 @@ function seedData () {
     let index2 = Math.floor(Math.random() * folder.projects.length);
     let project = folder.projects[index2]
     project.addTask(task);
+  }
+
+  function _getRandomDate() {
+    let today = new Date();
+    let date = new Date();
+
+    date.setDate(today.getDate() + (Math.floor(Math.random() * 100)));
+
+    return date;
   }
 
 }
