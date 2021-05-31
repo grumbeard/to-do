@@ -77,6 +77,7 @@ const coordinator = (function () {
 
       if (data == currentTaskData) _makeActive(task);
       task.addEventListener("click", controller.handleSelect);
+      _bindEventToChild(task, 'priority', 'click', controller.handleTogglePriority)
     });
 
   }

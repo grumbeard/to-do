@@ -231,6 +231,16 @@ const controller = (function () {
   }
 
 
+  function handleTogglePriority(e) {
+    e.stopPropagation();
+
+    let task = _tasks.find(t => t._id == e.target.dataset.id);
+    task.priority = !task.priority;
+
+    _updateDisplay();
+  }
+
+
   function _checkXContainsY(x, y) {
 
     return (x[y].length == 0) ? false : true;
@@ -242,7 +252,8 @@ const controller = (function () {
     initToDo,
     handleSelect,
     handleArchive,
-    handleDelete
+    handleDelete,
+    handleTogglePriority
   };
 
 })();
