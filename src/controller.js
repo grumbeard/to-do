@@ -57,10 +57,6 @@ const controller = (function () {
 
   function handleSelect(e) {
 
-    // Do not treat as selection if target is a button
-    // Let appropriate handler for button handle interaction instead
-    if (e.target.classList.contains('btn')) return
-
     let type = e.target.dataset.type;
     let id = e.target.dataset.id;
     let obj = null;
@@ -179,6 +175,8 @@ const controller = (function () {
 
   function handleArchive(e) {
 
+    e.stopPropagation();
+
     let project = _projects.find(proj => proj._id == e.target.dataset.id);
     let oldProjectFolder = _folders.find(f => f.projects.includes(project))
     let newProjectFolder = _folders.find(f => f.name == "Archive")
@@ -194,6 +192,8 @@ const controller = (function () {
 
 
   function handleDelete(e) {
+
+    e.stopPropagation();
 
     let project = _projects.find(proj => proj._id == e.target.dataset.id);
     let folder = _folders.find(f => f.projects.includes(project))

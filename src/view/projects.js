@@ -12,14 +12,16 @@ const projects = (function () {
     project.setAttribute('data-type', 'project');
     project.setAttribute('data-id', data.id);
 
-    const title = _createTitle(data.title);
+    const title = _createTitle(data.title, data.id);
     const archiveBtn = _createButton(
       `<span class="material-icons" data-id="${data.id}">inventory_2</span>`,
-      'archive'
+      'archive',
+      data.id
       );
     const deleteBtn = _createButton(
       `<span class="material-icons" data-id="${data.id}">cancel</span>`,
-      'delete'
+      'delete',
+      data.id
       );
 
     project.append(title, archiveBtn, deleteBtn);
@@ -28,10 +30,12 @@ const projects = (function () {
   }
 
 
-  function _createTitle(value) {
+  function _createTitle(value, id) {
 
     const title = document.createElement('p');
     title.classList.add('project-title');
+    title.setAttribute('data-type', 'project');
+    title.setAttribute('data-id', id);
     title.innerText = value;
 
     return title;
@@ -39,10 +43,11 @@ const projects = (function () {
   }
 
 
-  function _createButton(img, type) {
+  function _createButton(img, type, id) {
     const btn = document.createElement('div');
     btn.classList.add(type);
     btn.classList.add('btn');
+    btn.setAttribute('data-id', id);
     btn.innerHTML = img;
 
     return btn;
