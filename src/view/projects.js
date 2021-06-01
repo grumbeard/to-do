@@ -21,7 +21,7 @@ const projects = (function () {
       data.id
       );
     const archiveBtn = createButton(
-      `<span class="material-icons" data-id="${data.id}">inventory_2</span>`,
+      `<span class="material-icons-outlined" data-id="${data.id}">inventory_2</span>`,
       'archive',
       data.id
       );

@@ -56,7 +56,9 @@ function seedData () {
     let today = new Date();
     let date = new Date();
 
-    date.setDate(today.getDate() + (Math.floor(Math.random() * 100)));
+    const sign = [1, -1];
+    let multiplier = (sign[Math.floor(Math.random() * 2)]);
+    date.setDate(today.getDate() + (multiplier * (Math.floor(Math.random() * 100))));
 
     return date;
   }

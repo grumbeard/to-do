@@ -21,21 +21,57 @@ const tasks = (function () {
       data.id
       );
 
-    let flagIcon = (data.priority) ? 'flag' : 'outlined_flag'
+    let priorityIcon = (data.priority) ? 'flag' : 'outlined_flag'
 
-    const priorityBtn = createButton(
-      `<span class="material-icons" data-id="${data.id}">${flagIcon}</span>`,
+    const priorityToggle = createButton(
+      `<span class="material-icons" data-id="${data.id}">${priorityIcon}</span>`,
       'priority',
       data.id
       );
 
-    const countdown = document.createElement('div');
-    countdown.classList.add('countdown');
-    countdown.innerText = data.due;
+    let doneIcon = (data.done) ? 'check_box_outline_blank' : 'check_box'
 
-    task.append(title, priorityBtn, countdown);
+    const doneToggle = createButton(
+      `<span class="material-icons" data-id="${data.id}">${doneIcon}</span>`,
+      'done',
+      data.id
+      );
+
+    const countdown = _createCountdown(data.due);
+
+    task.append(countdown, title, priorityToggle, doneToggle);
 
     return task
+  }
+
+  function _createCountdown(dueDate) {
+
+    const countdown = document.createElement('div');
+    countdown.classList.add('countdown-container');
+
+    let today = new Date();
+    let daysRemaining = Math.floor((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (daysRemaining >= 0) {
+      const countdownNum = document.createElement('p');
+      countdownNum.classList.add('countdown-num');
+      countdownNum.innerText = daysRemaining;
+
+      const countdownLabel = document.createElement('p');
+      countdownLabel.classList.add('countdown-label');
+      countdownLabel.innerText = 'days';
+
+      countdown.append(countdownNum, countdownLabel);
+    } else {
+      const countdownOverdue = document.createElement('p');
+      countdownOverdue.classList.add('countdown-overdue');
+      countdownOverdue.innerText = 'overdue'
+
+      countdown.append(countdownOverdue);
+    }
+
+    return countdown;
+
   }
 
   return { createTask };

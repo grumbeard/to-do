@@ -232,6 +232,7 @@ const controller = (function () {
 
 
   function handleTogglePriority(e) {
+    console.log(e);
     e.stopPropagation();
 
     let task = _tasks.find(t => t._id == e.target.dataset.id);
