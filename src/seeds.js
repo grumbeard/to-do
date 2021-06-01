@@ -39,7 +39,8 @@ function seedData () {
       title: `Task No. ${i}`,
       priority: (Math.random() > 0.5),
       done: (Math.random() > 0.5),
-      due: _getRandomDate()
+      due: _getRandomDate(),
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel elementum ipsum. Praesent sollicitudin felis eros, non laoreet nulla pretium vel.'
     });
 
     // Add task to random project

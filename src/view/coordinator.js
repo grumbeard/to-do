@@ -43,8 +43,9 @@ const coordinator = (function () {
       let folder = foldersUI.createFolder(data);
       _folders.append(folder);
 
-      if (data == currentFolderData) _makeActive(folder);
       folder.addEventListener("click", controller.handleSelect);
+
+      if (data == currentFolderData) _makeActive('folder', folder);
     });
 
   }
@@ -58,10 +59,9 @@ const coordinator = (function () {
       let project = projectsUI.createProject(data);
       _projects.append(project);
 
-      if (data == currentProjectData) _makeActive(project);
       project.addEventListener("click", controller.handleSelect);
-      _bindEventToChild(project, 'archive', 'click', controller.handleArchive);
-      _bindEventToChild(project, 'delete', 'click', controller.handleDelete);
+
+      if (data == currentProjectData) _makeActive('project', project);
     });
 
   }
@@ -75,18 +75,39 @@ const coordinator = (function () {
       let task = tasksUI.createTask(data);
       _tasks.append(task);
 
-      if (data == currentTaskData) _makeActive(task);
       task.addEventListener("click", controller.handleSelect);
-      _bindEventToChild(task, 'priority', 'click', controller.handleTogglePriority)
-      _bindEventToChild(task, 'done', 'click', controller.handleToggleDone)
+      _bindEventToChild(task, 'priority', 'click', controller.handleTogglePriority);
+      _bindEventToChild(task, 'done', 'click', controller.handleToggleDone);
+
+      if (data == currentTaskData) _makeActive('task', task);
     });
 
   }
 
 
-  function _makeActive(element) {
+  function _makeActive(type, element) {
 
     element.classList.add('active');
+
+    switch(type) {
+
+      case 'folder':
+        break;
+
+      case 'project':
+        _bindEventToChild(element, 'archive', 'click', controller.handleArchive);
+        _bindEventToChild(element, 'delete', 'click', controller.handleDelete);
+        break;
+
+      case 'task':
+        const taskDetails = element.querySelector('.task-details-container');
+        taskDetails.classList.remove('hide');
+        break;
+
+      default:
+        console.log("unknown selection type");
+
+    }
 
   }
 

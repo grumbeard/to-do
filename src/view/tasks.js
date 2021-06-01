@@ -39,10 +39,13 @@ const tasks = (function () {
 
     const countdown = _createCountdown(data.due);
 
-    task.append(countdown, title, priorityToggle, doneToggle);
+    const taskDetails = _createTaskDetails(data);
+
+    task.append(countdown, title, priorityToggle, doneToggle, taskDetails);
 
     return task
   }
+
 
   function _createCountdown(dueDate) {
 
@@ -73,6 +76,45 @@ const tasks = (function () {
     return countdown;
 
   }
+
+
+  function _createTaskDetails(taskData) {
+
+    const taskDetails = document.createElement('div');
+    taskDetails.classList.add('task-details-container', 'hide');
+
+    const dueDetail = _createTaskDetail('due', taskData.due);
+    const doDetail = _createTaskDetail('do', taskData.description);
+
+    const buttons = document.createElement('div');
+    buttons.classList.add('task-details-btns-container');
+
+    taskDetails.append(dueDetail, doDetail, buttons);
+
+    return taskDetails;
+
+  }
+
+
+  function _createTaskDetail(labelText, infoHTML) {
+
+    const taskDetail = document.createElement('div');
+    taskDetail.classList.add('task-detail-container');
+
+    const detailLabel = document.createElement('p');
+    detailLabel.classList.add('task-detail-label');
+    detailLabel.innerText = labelText;
+
+    const detailInfo = document.createElement('p');
+    detailInfo.classList.add('task-detail-info');
+    detailInfo.innerHTML = infoHTML;
+
+    taskDetail.append(detailLabel, detailInfo);
+
+    return taskDetail;
+
+  }
+
 
   return { createTask };
 
