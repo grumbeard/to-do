@@ -232,11 +232,20 @@ const controller = (function () {
 
 
   function handleTogglePriority(e) {
-    console.log(e);
     e.stopPropagation();
 
     let task = _tasks.find(t => t._id == e.target.dataset.id);
     task.priority = !task.priority;
+
+    _updateDisplay();
+  }
+
+
+  function handleToggleDone(e) {
+    e.stopPropagation();
+
+    let task = _tasks.find(t => t._id == e.target.dataset.id);
+    task.done = !task.done;
 
     _updateDisplay();
   }
@@ -254,7 +263,8 @@ const controller = (function () {
     handleSelect,
     handleArchive,
     handleDelete,
-    handleTogglePriority
+    handleTogglePriority,
+    handleToggleDone
   };
 
 })();
