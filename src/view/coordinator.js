@@ -102,6 +102,11 @@ const coordinator = (function () {
       case 'task':
         const taskDetails = element.querySelector('.task-details-container');
         taskDetails.classList.remove('hide');
+
+        const buttons = element.querySelector('.task-details-btns-container');
+
+        _bindEventToChild(buttons, 'save', 'click', controller.handleSave);
+        _bindEventToChild(buttons, 'delete', 'click', controller.handleDelete);
         break;
 
       default:
@@ -125,11 +130,37 @@ const coordinator = (function () {
   }
 
 
+  function getFieldValue(fieldName, id) {
+
+    const fieldClassNames = {
+      due: '.task-detail-due',
+      description: '.task-detail-do'
+    }
+
+    const field = document.querySelector(fieldClassNames[fieldName]);
+    let fieldValue = null;
+
+    switch(fieldName) {
+      case 'due':
+        fieldValue = field.querySelector('input').valueAsDate;
+        break;
+      case 'description':
+        fieldValue = field.querySelector('textarea').value;
+        break;
+      default:
+        console.log('Invalid field');
+    }
+
+    return fieldValue;
+  }
+
+
   return {
     initLayout,
     initFolders,
     initProjects,
-    initTasks
+    initTasks,
+    getFieldValue
   };
 
 })();

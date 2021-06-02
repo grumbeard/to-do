@@ -132,6 +132,7 @@ const controller = (function () {
       return;
     }
 
+    // Check if project has tasks
     if (_checkXContainsY(_currentProject, 'tasks')) {
       _tasks = _currentProject.tasks;
     } else {
@@ -153,7 +154,7 @@ const controller = (function () {
 
   function _createProject(project) {
 
-    let testProjectData = (project) ? project : { title: "Project Title 1" }
+    const testProjectData = (project) ? project : { title: "Project Title 1" }
     const newProject = new Project(testProjectData.title);
 
     _currentFolder.addProject(newProject);
@@ -164,7 +165,7 @@ const controller = (function () {
 
   function _createTask(task) {
 
-    let testTaskData = (task) ? task : { title: "Task Title 1" }
+    const testTaskData = (task) ? task : { title: "Task Title 1" }
     const newTask = new Task(testTaskData.title);
 
     _currentProject.addTask(newTask);
@@ -177,9 +178,9 @@ const controller = (function () {
 
     e.stopPropagation();
 
-    let project = _projects.find(proj => proj._id == e.target.dataset.id);
-    let oldProjectFolder = _folders.find(f => f.projects.includes(project))
-    let newProjectFolder = _folders.find(f => f.name == "Archive")
+    const project = _projects.find(proj => proj._id == e.target.dataset.id);
+    const oldProjectFolder = _folders.find(f => f.projects.includes(project))
+    const newProjectFolder = _folders.find(f => f.name == "Archive")
 
     // Move project to Archive folder
     oldProjectFolder.removeProject(project);
@@ -195,8 +196,8 @@ const controller = (function () {
 
     e.stopPropagation();
 
-    let project = _projects.find(proj => proj._id == e.target.dataset.id);
-    let folder = _folders.find(f => f.projects.includes(project))
+    const project = _projects.find(proj => proj._id == e.target.dataset.id);
+    const folder = _folders.find(f => f.projects.includes(project))
 
     folder.removeProject(project);
 
@@ -204,6 +205,7 @@ const controller = (function () {
     _updateDisplay();
 
   }
+
 
   function _deleteProject(project) {
 
@@ -219,7 +221,9 @@ const controller = (function () {
 
   }
 
+
   function _deleteTasks(project) {
+
     project.tasks.forEach(task => {
       // Make task null
       task.delete();
@@ -232,22 +236,60 @@ const controller = (function () {
 
 
   function handleTogglePriority(e) {
+
     e.stopPropagation();
 
-    let task = _tasks.find(t => t._id == e.target.dataset.id);
+    const task = _tasks.find(t => t._id == e.target.dataset.id);
     task.priority = !task.priority;
 
     _updateDisplay();
+
   }
 
 
   function handleToggleDone(e) {
+
     e.stopPropagation();
 
-    let task = _tasks.find(t => t._id == e.target.dataset.id);
+    const task = _tasks.find(t => t._id == e.target.dataset.id);
     task.done = !task.done;
 
     _updateDisplay();
+
+  }
+
+
+  function handleSave(e) {
+
+    e.stopPropagation();
+
+    const task = _tasks.find(t => t._id == e.target.dataset.id);
+
+    const newDue = viewCoordinator.getFieldValue('due', task.id);
+    const newDescription = viewCoordinator.getFieldValue('description', task.id);
+
+    task.due = newDue;
+    task.description = newDescription;
+
+    _updateDisplay();
+
+  }
+
+
+  function handleDelete(e) {
+
+    e.stopPropagation();
+
+    const task = _tasks.find(t => t._id == e.target.dataset.id);
+    // Make task null
+    task.delete();
+
+    // Remove task from project (assumed to be Current Project)
+    _currentProject.removeTask(task);
+
+    _currentTask = null;
+    _updateDisplay();
+
   }
 
 
@@ -264,7 +306,9 @@ const controller = (function () {
     handleArchive,
     handleDelete,
     handleTogglePriority,
-    handleToggleDone
+    handleToggleDone,
+    handleSave,
+    handleDelete
   };
 
 })();
