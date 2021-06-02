@@ -90,6 +90,7 @@ const tasks = (function () {
 
     const dueDetail = _createTaskDetail('due', dateHTML.outerHTML);
     dueDetail.classList.add('task-detail-due');
+
     const doDetail = _createTaskDetail('do', textBoxHTML.outerHTML);
     doDetail.classList.add('task-detail-do');
 
@@ -145,8 +146,7 @@ const tasks = (function () {
     let month = date.getMonth() + 1;
     if (month < 10) month = `0${month}`
 
-    // NOTE: getMonth() returns 0-indexed value
-    let day = date.getDay() + 1;
+    let day = date.getDate();
     if (day < 10) day = `0${day}`
 
     return `${year}-${month}-${day}`
