@@ -102,6 +102,11 @@ const coordinator = (function () {
       case 'task':
         const taskDetails = element.querySelector('.task-details-container');
         taskDetails.classList.remove('hide');
+
+        const buttons = element.querySelector('.task-details-btns-container');
+
+        _bindEventToChild(buttons, 'save', 'click', controller.handleSave);
+        _bindEventToChild(buttons, 'delete', 'click', controller.handleDelete);
         break;
 
       default:

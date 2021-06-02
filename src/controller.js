@@ -132,6 +132,7 @@ const controller = (function () {
       return;
     }
 
+    // Check if project has tasks
     if (_checkXContainsY(_currentProject, 'tasks')) {
       _tasks = _currentProject.tasks;
     } else {
@@ -205,6 +206,7 @@ const controller = (function () {
 
   }
 
+
   function _deleteProject(project) {
 
     // Delete all tasks for project
@@ -219,7 +221,9 @@ const controller = (function () {
 
   }
 
+
   function _deleteTasks(project) {
+
     project.tasks.forEach(task => {
       // Make task null
       task.delete();
@@ -232,22 +236,52 @@ const controller = (function () {
 
 
   function handleTogglePriority(e) {
+
     e.stopPropagation();
 
     let task = _tasks.find(t => t._id == e.target.dataset.id);
     task.priority = !task.priority;
 
     _updateDisplay();
+
   }
 
 
   function handleToggleDone(e) {
+
     e.stopPropagation();
 
     let task = _tasks.find(t => t._id == e.target.dataset.id);
     task.done = !task.done;
 
     _updateDisplay();
+
+  }
+
+
+  function handleSave(e) {
+
+    e.stopPropagation();
+
+    let task = _tasks.find(t => t._id == e.target.dataset.id);
+
+  }
+
+
+  function handleDelete(e) {
+
+    e.stopPropagation();
+
+    let task = _tasks.find(t => t._id == e.target.dataset.id);
+    // Make task null
+    task.delete();
+
+    // Remove task from project (assumed to be Current Project)
+    _currentProject.removeTask(task);
+
+    _currentTask = null;
+    _updateDisplay();
+
   }
 
 
@@ -264,7 +298,9 @@ const controller = (function () {
     handleArchive,
     handleDelete,
     handleTogglePriority,
-    handleToggleDone
+    handleToggleDone,
+    handleSave,
+    handleDelete
   };
 
 })();

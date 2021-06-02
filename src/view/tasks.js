@@ -78,15 +78,15 @@ const tasks = (function () {
   }
 
 
-  function _createTaskDetails(taskData) {
+  function _createTaskDetails(data) {
 
     const taskDetails = document.createElement('div');
     taskDetails.classList.add('task-details-container', 'hide');
 
-    const dueDate = _getFormatedDate(taskData.due);
+    const dueDate = _getFormatedDate(data.due);
     const dateHTML = _getDateHTML(dueDate);
 
-    const textBoxHTML = _getTextBoxHTML(taskData.description);
+    const textBoxHTML = _getTextBoxHTML(data.description);
 
     const dueDetail = _createTaskDetail('due', dateHTML.outerHTML);
     dueDetail.classList.add('task-detail-due');
@@ -95,6 +95,20 @@ const tasks = (function () {
 
     const buttons = document.createElement('div');
     buttons.classList.add('task-details-btns-container');
+
+    const taskSave = createButton(
+      `<span class="material-icons-outlined" data-id="${data.id}">save</span>`,
+      'save',
+      data.id
+      );
+
+    const taskDelete = createButton(
+      `<span class="material-icons-outlined" data-id="${data.id}">delete</span>`,
+      'delete',
+      data.id
+      );
+
+    buttons.append(taskDelete, taskSave);
 
     taskDetails.append(dueDetail, doDetail, buttons);
 
