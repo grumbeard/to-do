@@ -83,8 +83,15 @@ const tasks = (function () {
     const taskDetails = document.createElement('div');
     taskDetails.classList.add('task-details-container', 'hide');
 
-    const dueDetail = _createTaskDetail('due', taskData.due);
-    const doDetail = _createTaskDetail('do', taskData.description);
+    const dueDate = _getFormatedDate(taskData.due);
+    const dateHTML = _getDateHTML(dueDate);
+
+    const textBoxHTML = _getTextBoxHTML(taskData.description);
+
+    const dueDetail = _createTaskDetail('due', dateHTML.outerHTML);
+    dueDetail.classList.add('task-detail-due');
+    const doDetail = _createTaskDetail('do', textBoxHTML.outerHTML);
+    doDetail.classList.add('task-detail-do');
 
     const buttons = document.createElement('div');
     buttons.classList.add('task-details-btns-container');
@@ -112,6 +119,44 @@ const tasks = (function () {
     taskDetail.append(detailLabel, detailInfo);
 
     return taskDetail;
+
+  }
+
+
+  function _getFormatedDate(date) {
+
+    const year = date.getFullYear();
+
+    // NOTE: getMonth() returns 0-indexed value
+    let month = date.getMonth() + 1;
+    if (month < 10) month = `0${month}`
+
+    // NOTE: getMonth() returns 0-indexed value
+    let day = date.getDay() + 1;
+    if (day < 10) day = `0${day}`
+
+    return `${year}-${month}-${day}`
+
+  }
+
+
+  function _getDateHTML(date) {
+
+    const dateHTML = document.createElement('input');
+    dateHTML.setAttribute('type', 'date');
+    dateHTML.setAttribute('value', date);
+
+    return dateHTML;
+
+  }
+
+
+  function _getTextBoxHTML(text) {
+
+    const textBoxHTML = document.createElement('textarea');
+    textBoxHTML.innerText = text;
+
+    return textBoxHTML;
 
   }
 
