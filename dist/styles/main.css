@@ -1,3 +1,85 @@
 .hide {
   display: none;
 }
+
+/* CUSTOM COLORS  */
+:root {
+  --blueberry: #697ECA;
+  --lilac: #D290D0;
+  --lavender: #E5C9F2;
+  --orchid: #CEC3EE;
+  --mint: #B0F7F2;
+  --dark-grey: #72808A;
+  --light-grey: #C7D3DC;
+  --red: #FA7171;
+  --blue: #4A90E2;
+  --yellow: #FFD200;
+
+  /* Background  */
+  --folders-bg: var(--lilac);
+  --projects-bg: var(--lavender);
+  --tasks-bg: var(--mint);
+  --footer-bg: var(--light-grey);
+
+  /* Text  */
+  --main-text: var(--dark-grey);
+  --title-text: var(--blueberry);
+}
+
+
+/* MAIN LAYOUT  */
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  color: var(--main-text);
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display:  grid;
+  grid-template-areas:
+    "folders projects"
+    "folders tasks"
+    "footer footer";
+  grid-template-columns: 25vw 1fr;
+  grid-template-rows: 45vh 45vh 10vh;
+}
+
+
+/* FOLDERS  */
+
+#folders-container {
+  grid-area: folders;
+  background-color: var(--folders-bg);
+  overflow: scroll;
+}
+
+
+/* PROJECTS  */
+
+#projects-container {
+  grid-area: projects;
+  background-color: var(--projects-bg);
+  overflow: scroll;
+}
+
+
+/* TASKS  */
+
+#tasks-container {
+  grid-area: tasks;
+  background-color: var(--tasks-bg);
+  overflow: scroll;
+}
+
+
+/* FOOTER  */
+
+footer {
+  grid-area: footer;
+  background-color: var(--footer-bg);
+}

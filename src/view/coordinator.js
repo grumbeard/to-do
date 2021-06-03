@@ -28,7 +28,9 @@ const coordinator = (function () {
     const tasksContainer = document.createElement('div');
     tasksContainer.id = 'tasks-container';
 
-    _app.append(foldersContainer, projectsContainer, tasksContainer);
+    const footer = _createFooter();
+
+    _app.append(foldersContainer, projectsContainer, tasksContainer, footer);
     _folders = document.getElementById("folders-container");
     _projects = document.getElementById("projects-container");
     _tasks = document.getElementById("tasks-container");
@@ -151,7 +153,28 @@ const coordinator = (function () {
         console.log('Invalid field');
     }
 
+
     return fieldValue;
+  }
+
+
+  function _createFooter() {
+
+    const footer = document.createElement('footer');
+
+    const footerContent = document.createElement('a');
+    footerContent.classList.add('footer-content');
+    footerContent.setAttribute('href', 'https://github.com/grumbeard/to-do');
+
+    const footerText = document.createElement('p');
+    footerText.classList.add('footer-text');
+    footerText.innerText = '© 2021 grumbeard'
+
+    footerContent.append(footerText);
+    footer.append(footerContent);
+
+    return footer;
+
   }
 
 
