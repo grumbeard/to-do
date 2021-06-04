@@ -60,6 +60,29 @@ body {
   grid-template-rows: 1fr 1fr auto;
 }
 
+@media (max-width: 600px) {
+  body {
+    height: auto;
+    font-size: 11px;
+  }
+
+  #app {
+    grid-template-areas:
+      "folders"
+      "projects"
+      "tasks"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    font-size: 1.5em;
+  }
+}
+
 #folders-container, #projects-container, #tasks-container {
   display: flex;
   flex-direction: column;
@@ -78,6 +101,13 @@ body {
 .project, .task {
   min-width: 60vw;
   max-width: 80vw;
+}
+
+@media (max-width:  600px) {
+  .project, .task {
+    min-width: 80vw;
+    max-width: 90vw;
+  }
 }
 
 .project.active {
@@ -249,9 +279,10 @@ a {
 
 .task-detail-info > * {
   border: 0;
-  width: 90%;
+  width: 80%;
   padding: 1em;
   font-family: 'Roboto', sans-serif;
+  font-size: 1em;
 }
 
 .task-detail-info > *:focus {
