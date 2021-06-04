@@ -1,3 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .hide {
   display: none;
+}
+
+/* CUSTOM COLORS  */
+:root {
+  --blueberry: #697ECA;
+  --lilac: #D290D0;
+  --lavender: #E5C9F2;
+  --orchid: #CEC3EE;
+  --mint: #B0F7F2;
+  --dark-grey: #72808A;
+  --light-grey: #C7D3DC;
+  --off-white: #F3F5F8;
+  --red: #FA7171;
+  --blue: #4A90E2;
+  --yellow: #FFD200;
+
+  /* Background  */
+  --folders-bg: var(--lilac);
+  --folder-bg: white;
+  --projects-bg: var(--lavender);
+  --project-bg: var(--off-white);
+  --tasks-bg: var(--mint);
+  --task-bg: var(--off-white);
+  --footer-bg: var(--light-grey);
+  --countdown-bg: var(--dark-grey);
+  --delete-bg: var(--red);
+  --save-bg: var(--blue);
+
+  /* Text  */
+  --main-text: var(--dark-grey);
+  --title-text: var(--blueberry);
+  --light-text: white;
+}
+
+
+/* MAIN LAYOUT  */
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  color: var(--main-text);
+  font-family: 'Roboto', sans-serif;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display:  grid;
+  grid-template-areas:
+    "folders projects"
+    "folders tasks"
+    "footer footer";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr 1fr auto;
+}
+
+@media (max-width: 600px) {
+  body {
+    height: auto;
+    font-size: 11px;
+  }
+
+  #app {
+    grid-template-areas:
+      "folders"
+      "projects"
+      "tasks"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    font-size: 1.5em;
+  }
+}
+
+#folders-container, #projects-container, #tasks-container {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  align-items: center;
+  padding: 2em;
+}
+
+.folder, .project, .task {
+  display: flex;
+  align-items: center;
+  margin: 1em 0;
+  border-radius: 5px;
+}
+
+.project, .task {
+  min-width: 60vw;
+  max-width: 80vw;
+}
+
+@media (max-width:  600px) {
+  .project, .task {
+    min-width: 80vw;
+    max-width: 90vw;
+  }
+}
+
+.project.active {
+  border: 2px solid var(--blueberry);
+}
+
+.title {
+  margin: 0 auto 0 0;
+  text-transform: capitalize;
+  padding: 0 1em;
+}
+
+.btn > * {
+  color: var(--blue);
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: var(--main-text);
+}
+
+
+/* FOLDERS  */
+
+#folders-container {
+  grid-area: folders;
+  background-color: var(--folders-bg);
+}
+
+.folder {
+  align-self: stretch;
+  padding: 1em;
+  color: var(--blueberry);
+  background-color: var(--folder-bg);
+  border: 2px solid var(--folders-bg);
+  gap: 0.5em;
+  cursor: pointer;
+}
+
+.folder.active {
+  background-color: var(--blueberry);
+  color: var(--light-text);
+}
+
+.folder.archive {
+  margin-top: auto;
+  background-color: var(--orchid);
+}
+
+.folder:hover {
+  border: 2px solid var(--blueberry);
+}
+
+.folder-title {
+  font-size: 1.2em;
+}
+
+
+/* PROJECTS  */
+
+#projects-container {
+  grid-area: projects;
+  background-color: var(--projects-bg);
+}
+
+.project {
+  max-width: 450px;
+  padding: 1em;
+  background-color: var(--project-bg);
+  gap: 0.5em;
+  cursor: pointer;
+}
+
+.project-title {
+  font-size: 1.2em;
+  color: var(--blueberry);
+}
+
+.project > * {
+  padding-right: 1em;
+}
+
+
+/* TASKS  */
+
+#tasks-container {
+  grid-area: tasks;
+  background-color: var(--tasks-bg);
+}
+
+.task {
+  background-color: var(--task-bg);
+  flex-direction: column;
+}
+
+.task > * {
+  width: 100%;
+}
+
+.task-summary-container {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+}
+
+.task-summary-container.active {
+  border-radius: 5px 5px 0 0;
+}
+
+.task-summary-container > * {
+  padding-right: 1em;
+}
+
+.task-title {
+  flex-grow: 1;
+}
+
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  width: 6em;
+  padding: 1em 0;
+  background-color: var(--countdown-bg);
+  text-align: center;
+  border-radius: 5px 0 0 5px;
+}
+
+.task.active .countdown-container {
+  border-radius: 5px 0 0 0;
+}
+
+.countdown-container > p {
+  color: white;
+  margin: 0 auto;
+  text-transform: uppercase;
+}
+
+.btn.priority > * {
+  color: var(--yellow);
+}
+
+.task-detail-container, .task-details-btns-container {
+  display: flex;
+  border-radius: 0 0 5px 5px;
+  align-items: center;
+}
+
+.task-detail-label {
+  text-transform: capitalize;
+}
+
+.task-detail-label, .task .delete.btn {
+  width: 6em;
+  text-align: center;
+}
+
+.task-detail-info, .task .save.btn {
+  flex-grow: 1;
+}
+
+.task-detail-info, .task-detail-info > * {
+  background-color: var(--light-grey);
+  align-self: stretch;
+  color: var(--main-text);
+}
+
+.task-detail-info > * {
+  border: 0;
+  width: 80%;
+  padding: 1em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+}
+
+.task-detail-info > *:focus {
+  color: black;
+}
+
+.task-details-btns-container > * {
+  align-self: stretch;
+  color: white;
+}
+
+.task .delete.btn {
+  background-color: var(--delete-bg);
+  border-radius: 0 0 0 5px;
+}
+
+.task .save.btn {
+  background-color: var(--save-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  border-radius: 0 0 5px 0;
+}
+
+.task .delete.btn > *, .task .save.btn > * {
+  color: white;
+  padding: 0.5em 1em;
+}
+
+
+/* FOOTER  */
+
+footer {
+  grid-area: footer;
+  background-color: var(--footer-bg);
+}
+
+.footer-content {
+  float: right;
+  padding-right: 1em;
 }

@@ -28,7 +28,9 @@ const coordinator = (function () {
     const tasksContainer = document.createElement('div');
     tasksContainer.id = 'tasks-container';
 
-    _app.append(foldersContainer, projectsContainer, tasksContainer);
+    const footer = _createFooter();
+
+    _app.append(foldersContainer, projectsContainer, tasksContainer, footer);
     _folders = document.getElementById("folders-container");
     _projects = document.getElementById("projects-container");
     _tasks = document.getElementById("tasks-container");
@@ -56,12 +58,19 @@ const coordinator = (function () {
     _projects.innerHTML = "";
     if (!projectsData) return;
     projectsData.forEach(data => {
-      let project = projectsUI.createProject(data);
+      let project = null;
+
+      if (data == currentProjectData) {
+        project = projectsUI.createActiveProject(data)
+        _makeActive('project', project);
+      } else {
+        project = projectsUI.createProject(data);
+      }
+
       _projects.append(project);
 
       project.addEventListener("click", controller.handleSelect);
 
-      if (data == currentProjectData) _makeActive('project', project);
     });
 
   }
@@ -75,9 +84,11 @@ const coordinator = (function () {
       let task = tasksUI.createTask(data);
       _tasks.append(task);
 
-      task.addEventListener("click", controller.handleSelect);
-      _bindEventToChild(task, 'priority', 'click', controller.handleTogglePriority);
-      _bindEventToChild(task, 'done', 'click', controller.handleToggleDone);
+      const taskSummary = task.querySelector('.task-summary-container');
+
+      taskSummary.addEventListener("click", controller.handleSelect);
+      _bindEventToChild(taskSummary, 'priority', 'click', controller.handleTogglePriority);
+      _bindEventToChild(taskSummary, 'done', 'click', controller.handleToggleDone);
 
       if (data == currentTaskData) _makeActive('task', task);
     });
@@ -137,7 +148,12 @@ const coordinator = (function () {
       description: '.task-detail-do'
     }
 
-    const field = document.querySelector(fieldClassNames[fieldName]);
+    let targetTask = null;
+    _tasks.childNodes.forEach(task => {
+      if (task.dataset.id == id) targetTask = task;
+    })
+
+    const field = targetTask.querySelector(fieldClassNames[fieldName]);
     let fieldValue = null;
 
     switch(fieldName) {
@@ -151,7 +167,28 @@ const coordinator = (function () {
         console.log('Invalid field');
     }
 
+
     return fieldValue;
+  }
+
+
+  function _createFooter() {
+
+    const footer = document.createElement('footer');
+
+    const footerContent = document.createElement('a');
+    footerContent.classList.add('footer-content');
+    footerContent.setAttribute('href', 'https://github.com/grumbeard/to-do');
+
+    const footerText = document.createElement('p');
+    footerText.classList.add('footer-text');
+    footerText.innerText = '© 2021 grumbeard'
+
+    footerContent.append(footerText);
+    footer.append(footerContent);
+
+    return footer;
+
   }
 
 
