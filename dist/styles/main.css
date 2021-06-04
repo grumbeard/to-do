@@ -24,6 +24,7 @@
   /* Text  */
   --main-text: var(--dark-grey);
   --title-text: var(--blueberry);
+  --light-text: white;
 }
 
 
@@ -56,6 +57,37 @@ body {
   grid-area: folders;
   background-color: var(--folders-bg);
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em;
+}
+
+.folder {
+  align-self: stretch;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 5px;
+  color: var(--blueberry);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border: 2px solid var(--folders-bg);
+}
+
+.folder.active {
+  background-color: var(--blueberry);
+  color: var(--light-text);
+}
+
+.folder.archive {
+  margin-top: auto;
+  background-color: var(--orchid);
+}
+
+.folder:hover {
+  border: 2px solid var(--blueberry);
 }
 
 
