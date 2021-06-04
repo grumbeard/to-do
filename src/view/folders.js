@@ -3,6 +3,8 @@
   This module manages changes to the DOM relevant to folders
 */
 
+import createTitle from './shared/title.js'
+
 const folders = (function () {
 
   function createFolder(data) {
@@ -21,7 +23,13 @@ const folders = (function () {
     }
 
     folder.insertAdjacentHTML('afterbegin', folderIcon);
-    folder.insertAdjacentHTML('beforeend', data.name)
+
+    const title = createTitle(
+      data.name,
+      'folder',
+      data.id
+      );
+    folder.append(title);
 
     return folder
   }

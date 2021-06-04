@@ -20,6 +20,18 @@ const projects = (function () {
       'project',
       data.id
       );
+
+    project.append(title);
+
+    return project;
+
+  }
+
+
+  function createActiveProject(data) {
+
+    const project = createProject(data);
+
     const archiveBtn = createButton(
       `<span class="material-icons-outlined" data-id="${data.id}">inventory_2</span>`,
       'archive',
@@ -31,12 +43,13 @@ const projects = (function () {
       data.id
       );
 
-    project.append(title, archiveBtn, deleteBtn);
+    project.append(archiveBtn, deleteBtn);
 
-    return project
+    return project;
+
   }
 
-  return { createProject };
+  return { createProject, createActiveProject };
 
 })();
 

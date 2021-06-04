@@ -58,12 +58,19 @@ const coordinator = (function () {
     _projects.innerHTML = "";
     if (!projectsData) return;
     projectsData.forEach(data => {
-      let project = projectsUI.createProject(data);
+      let project = null;
+
+      if (data == currentProjectData) {
+        project = projectsUI.createActiveProject(data)
+        _makeActive('project', project);
+      } else {
+        project = projectsUI.createProject(data);
+      }
+
       _projects.append(project);
 
       project.addEventListener("click", controller.handleSelect);
 
-      if (data == currentProjectData) _makeActive('project', project);
     });
 
   }
