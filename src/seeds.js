@@ -19,7 +19,7 @@ function seedData () {
   const seedFolders = Folder.list;
 
   // Generate projects
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     let proj = new Project({ title: `Project No. ${i}` });
 
     // Add first project to first task
@@ -34,7 +34,7 @@ function seedData () {
   }
 
   // Generate tasks
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 30; i++) {
     let task = new Task({
       title: `Task No. ${i}`,
       priority: (Math.random() > 0.5),
@@ -44,7 +44,7 @@ function seedData () {
     });
 
     // Add task to random project
-    let index1 = Math.floor(Math.random() * 5);
+    let index1 = Math.floor(Math.random() * 6);
     let folder = seedFolders[index1];
     if (folder.projects.length == 0) folder = seedFolders[0];
 
