@@ -148,7 +148,12 @@ const coordinator = (function () {
       description: '.task-detail-do'
     }
 
-    const field = document.querySelector(fieldClassNames[fieldName]);
+    let targetTask = null;
+    _tasks.childNodes.forEach(task => {
+      if (task.dataset.id == id) targetTask = task;
+    })
+
+    const field = targetTask.querySelector(fieldClassNames[fieldName]);
     let fieldValue = null;
 
     switch(fieldName) {
