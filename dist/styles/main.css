@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .hide {
   display: none;
 }
@@ -43,6 +45,7 @@ body {
   width: 100vw;
   height: 100vh;
   color: var(--main-text);
+  font-family: 'Roboto', sans-serif;
 }
 
 #app {
@@ -248,6 +251,7 @@ a {
   border: 0;
   width: 90%;
   padding: 1em;
+  font-family: 'Roboto', sans-serif;
 }
 
 .task-detail-info > *:focus {
