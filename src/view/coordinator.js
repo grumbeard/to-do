@@ -84,9 +84,11 @@ const coordinator = (function () {
       let task = tasksUI.createTask(data);
       _tasks.append(task);
 
-      task.addEventListener("click", controller.handleSelect);
-      _bindEventToChild(task, 'priority', 'click', controller.handleTogglePriority);
-      _bindEventToChild(task, 'done', 'click', controller.handleToggleDone);
+      const taskSummary = task.querySelector('.task-summary-container');
+
+      taskSummary.addEventListener("click", controller.handleSelect);
+      _bindEventToChild(taskSummary, 'priority', 'click', controller.handleTogglePriority);
+      _bindEventToChild(taskSummary, 'done', 'click', controller.handleToggleDone);
 
       if (data == currentTaskData) _makeActive('task', task);
     });

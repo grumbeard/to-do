@@ -24,6 +24,9 @@
   --tasks-bg: var(--mint);
   --task-bg: var(--off-white);
   --footer-bg: var(--light-grey);
+  --countdown-bg: var(--dark-grey);
+  --delete-bg: var(--red);
+  --save-bg: var(--blue);
 
   /* Text  */
   --main-text: var(--dark-grey);
@@ -63,12 +66,10 @@ body {
 }
 
 .folder, .project, .task {
-  border-radius: 5px;
   display: flex;
   align-items: center;
-  padding: 1em;
   margin: 1em 0;
-  gap: 0.5em;
+  border-radius: 5px;
 }
 
 .project, .task {
@@ -76,12 +77,18 @@ body {
   max-width: 80vw;
 }
 
-.project.active, .task.active {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.project.active {
+  border: 2px solid var(--blueberry);
 }
 
 .title {
   margin: 0 auto 0 0;
+  text-transform: capitalize;
+}
+
+.btn > * {
+  color: var(--blue);
+  cursor: pointer;
 }
 
 
@@ -94,10 +101,12 @@ body {
 
 .folder {
   align-self: stretch;
-  border-radius: 5px;
+  padding: 1em;
   color: var(--blueberry);
   background-color: var(--folder-bg);
   border: 2px solid var(--folders-bg);
+  gap: 0.5em;
+  cursor: pointer;
 }
 
 .folder.active {
@@ -128,16 +137,15 @@ body {
 
 .project {
   max-width: 450px;
+  padding: 1em;
   background-color: var(--project-bg);
+  gap: 0.5em;
+  cursor: pointer;
 }
 
 .project-title {
   font-size: 1.2em;
   color: var(--blueberry);
-}
-
-.project .btn > * {
-  color: var(--blue);
 }
 
 
@@ -146,6 +154,118 @@ body {
 #tasks-container {
   grid-area: tasks;
   background-color: var(--tasks-bg);
+}
+
+.task {
+  background-color: var(--task-bg);
+  flex-direction: column;
+}
+
+.task > * {
+  width: 100%;
+}
+
+.task-summary-container {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+}
+
+.task-summary-container.active {
+  border-radius: 5px 5px 0 0;
+}
+
+.task-summary-container > * {
+  padding: 0 1em;
+}
+
+.task-title {
+  flex-grow: 1;
+}
+
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  width: 6em;
+  padding: 1em 0;
+  background-color: var(--countdown-bg);
+  text-align: center;
+  border-radius: 5px 0 0 5px;
+}
+
+.task.active .countdown-container {
+  border-radius: 5px 0 0 0;
+}
+
+.countdown-container > p {
+  color: white;
+  margin: 0 auto;
+  text-transform: uppercase;
+}
+
+.btn.priority > * {
+  color: var(--yellow);
+}
+
+.task-detail-container, .task-details-btns-container {
+  display: flex;
+  border-radius: 0 0 5px 5px;
+  align-items: center;
+}
+
+.task-detail-label {
+  text-transform: capitalize;
+}
+
+.task-detail-label, .delete.btn {
+  width: 6em;
+  text-align: center;
+}
+
+.task-detail-info, .save.btn {
+  flex-grow: 1;
+}
+
+.task-detail-info, .task-detail-info > * {
+  background-color: var(--light-grey);
+  align-self: stretch;
+  color: var(--main-text);
+}
+
+.task-detail-info > * {
+  border: 0;
+  width: 90%;
+  padding: 1em;
+}
+
+.task-detail-info > *:focus {
+  color: black;
+}
+
+.task-details-btns-container > * {
+  align-self: stretch;
+  color: white;
+}
+
+.task .delete.btn {
+  background-color: var(--delete-bg);
+  border-radius: 0 0 0 5px;
+}
+
+.task .save.btn {
+  background-color: var(--save-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  border-radius: 0 0 5px 0;
+}
+
+.task .delete.btn > *, .task .save.btn > * {
+  color: white;
+  padding: 0.5em 1em;
 }
 
 

@@ -15,6 +15,11 @@ const tasks = (function () {
     task.setAttribute('data-type', 'task');
     task.setAttribute('data-id', data.id);
 
+    const taskSummary = document.createElement('div');
+    taskSummary.classList.add('task-summary-container');
+    taskSummary.setAttribute('data-type', 'task');
+    taskSummary.setAttribute('data-id', data.id);
+
     const title = createTitle(
       data.title,
       'task',
@@ -41,7 +46,8 @@ const tasks = (function () {
 
     const taskDetails = _createTaskDetails(data);
 
-    task.append(countdown, title, priorityToggle, doneToggle, taskDetails);
+    taskSummary.append(countdown, title, priorityToggle, doneToggle);
+    task.append(taskSummary, taskDetails);
 
     return task
   }
@@ -98,7 +104,7 @@ const tasks = (function () {
     buttons.classList.add('task-details-btns-container');
 
     const taskSave = createButton(
-      `<span class="material-icons-outlined" data-id="${data.id}">save</span>`,
+      'save',
       'save',
       data.id
       );
@@ -127,7 +133,7 @@ const tasks = (function () {
     detailLabel.classList.add('task-detail-label');
     detailLabel.innerText = labelText;
 
-    const detailInfo = document.createElement('p');
+    const detailInfo = document.createElement('div');
     detailInfo.classList.add('task-detail-info');
     detailInfo.innerHTML = infoHTML;
 
